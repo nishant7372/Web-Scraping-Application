@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
+const chromium = require("chromium");
 
 const selectors = {
   titleSelector: ".content > h6 > a",
@@ -83,7 +84,11 @@ router.get("/scrape", async (req, res) => {
         params[key] = +req?.query?.[key];
       }
     }
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: true,
+      executablePath: chromium.path,
+      args: ["--no-sandbox"],
+    });
     const posts = [];
     for (
       let pageNumber = 1;
