@@ -1,5 +1,6 @@
 const express = require("express");
 const scrapeRouter = require("./routers/scrape");
+const socketio = require("socket.io");
 
 const cors = require("cors");
 
@@ -18,6 +19,34 @@ app.use(cors());
 app.use(express.json());
 app.use(scrapeRouter);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log("Server is up on the port " + port);
 });
+
+const io = socketio(server, { cors: corsOptions });
+const connectedClients = new Map();
+
+io.on("connection", (socket) => {
+  console.log("New Websocket connnection! SocketId:", socket.id);
+  const socketId = socket.id;
+  connectedClients.set(socketId, socket);
+
+  socket.emit("socketId", { socketId: socket.id });
+
+  socket.on("connected", (res) => {
+    console.log(res);
+    console.log("\nOnline Clients: ", connectedClients.keys());
+  });
+
+  socket.on("disconnect", () => {
+    connectedClients.delete(socketId);
+    console.log("\nClient disconnected!, SocketID:", socketId);
+    console.log("\nOnline Clients: ", connectedClients.keys());
+  });
+
+  socket.on("error", (error) => {
+    console.error("Socket error:", error);
+  });
+});
+
+module.exports.connectedClients = connectedClients;

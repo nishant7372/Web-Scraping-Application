@@ -3,6 +3,8 @@ const router = express.Router();
 const puppeteer = require("puppeteer-core");
 const chromium = require("chromium");
 
+const obj = require("./../index");
+
 const selectors = {
   titleSelector: ".content > h6 > a",
   imageUrlSelector: ".img > a",
@@ -60,7 +62,7 @@ const extractPostData = async (post) => {
   return { title, imageUrl, date, likes };
 };
 
-const scrapeData = async (browser, pageNumber) => {
+const scrapeData = async (browser, pageNumber, socketClient, total) => {
   const page = await browser.newPage();
   await page.goto(`${selectors.base_url}${pageNumber}`);
 
@@ -72,12 +74,15 @@ const scrapeData = async (browser, pageNumber) => {
     const postData = await extractPostData(post);
     currentPagePosts.push({ ...postData, id });
     id++;
+    if (socketClient) socketClient.emit("progress", { completed: id, total });
   }
   return currentPagePosts;
 };
 
 router.get("/scrape", async (req, res) => {
   let params = { limit: 45 };
+  const socketId = req?.query?.params;
+  const socketClient = obj?.connectedClients?.get(socketId);
   try {
     for (const key in params) {
       if (req?.query?.[key]) {
@@ -90,12 +95,18 @@ router.get("/scrape", async (req, res) => {
       args: ["--no-sandbox"],
     });
     const posts = [];
+    let expectedTotal = params?.limit === 45 ? 402 : params?.limit * 9;
     for (
       let pageNumber = 1;
       pageNumber <= Math.min(params?.limit, 45);
       pageNumber++
     ) {
-      const currentPagePosts = await scrapeData(browser, pageNumber);
+      const currentPagePosts = await scrapeData(
+        browser,
+        pageNumber,
+        socketClient,
+        expectedTotal
+      );
       posts.push(...currentPagePosts);
     }
     await browser.close();
