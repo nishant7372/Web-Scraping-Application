@@ -75,7 +75,7 @@ const scrapeData = async (browser, pageNumber, socketClient, total) => {
   let id = 1;
   for (const post of posts) {
     const postData = await extractPostData(post);
-    currentPagePosts.push({ ...postData, id });
+    currentPagePosts.push({ id: (pageNumber - 1) * 9 + id, ...postData });
 
     if (socketClient)
       socketClient.emit("progress", {
