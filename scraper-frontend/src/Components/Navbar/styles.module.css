@@ -1,0 +1,11 @@
+.nav {
+  display: flex;
+  max-width: 1600px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  color: white;
+  background-color: rgb(4, 3, 3);
+  margin: auto;
+}

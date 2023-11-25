@@ -1,0 +1,35 @@
+.home-page {
+  margin: auto;
+  max-width: 1600px;
+  min-height: calc(100vh - 50px);
+  display: flex;
+}
+
+.container {
+  padding: 4rem 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 4rem;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.05);
+  width: 90%;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  width: 95%;
+  align-items: center;
+  gap: 2rem;
+}
+
+.output-container {
+  border-radius: 8px;
+  width: 95%;
+}
+
+.markdown {
+  padding: 2rem;
+  border-radius: 4px;
+}

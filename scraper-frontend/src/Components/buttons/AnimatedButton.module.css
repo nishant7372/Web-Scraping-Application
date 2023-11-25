@@ -1,0 +1,89 @@
+* {
+  --success-anim-bt: rgb(17, 210, 17);
+  --danger-anim-bt: rgb(233, 42, 42);
+  --operation-anim-bt: rgb(253, 5, 253);
+  --download-anim-bt: orange;
+  --info-anim-bt: rgb(0, 213, 255);
+  --navigation-anim-bt: grey;
+  --navigation-fill-anim-bt: #312f2f;
+}
+
+.animatedButton {
+  all: unset;
+}
+
+.createBt {
+  color: var(--success-anim-bt);
+  background: linear-gradient(
+    to right,
+    var(--success-anim-bt) 50%,
+    rgba(0, 0, 0, 0) 50%
+  );
+  border: 1px solid var(--success-anim-bt);
+}
+
+.deleteBt {
+  color: var(--danger-anim-bt);
+  border: 1px solid var(--danger-anim-bt);
+  background: linear-gradient(
+    to right,
+    var(--danger-anim-bt) 50%,
+    rgba(0, 0, 0, 0) 50%
+  );
+}
+
+.editBt {
+  color: var(--operation-anim-bt);
+  border: 1px solid var(--operation-anim-bt);
+  background: linear-gradient(
+    to right,
+    var(--operation-anim-bt) 50%,
+    rgba(0, 0, 0, 0) 50%
+  );
+}
+
+.infoBt {
+  color: var(--info-anim-bt);
+  border: 1px solid var(--info-anim-bt);
+  background: linear-gradient(
+    to right,
+    var(--info-anim-bt) 50%,
+    rgba(0, 0, 0, 0) 50%
+  );
+}
+
+.downloadBt {
+  color: var(--download-anim-bt);
+  border: 1px solid var(--download-anim-bt);
+  background: linear-gradient(
+    to right,
+    var(--download-anim-bt) 50%,
+    rgba(0, 0, 0, 0) 50%
+  );
+}
+
+.navigationBt {
+  color: var(--navigation-anim-bt);
+  border: 1px solid var(--navigation-anim-bt);
+  background: linear-gradient(
+    to right,
+    var(--navigation-fill-anim-bt) 50%,
+    rgba(0, 0, 0, 0) 50%
+  );
+}
+
+.animatedButton {
+  height: 100%;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  background-size: 200% 100%;
+  background-position: right top;
+  transition: all 0.4s ease;
+  cursor: pointer;
+}
+
+.animatedButton:hover {
+  color: white;
+  background-position: left top;
+}
