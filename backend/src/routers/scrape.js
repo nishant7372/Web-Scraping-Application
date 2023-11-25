@@ -43,6 +43,9 @@ const extractPostData = async (post) => {
       selectors.dateSelector,
       (element) => element?.textContent
     );
+    if (date) {
+      date = date.replace(",", "");
+    }
   } catch (error) {
     console.error("Error while extracting date:", error.message);
     date = null;

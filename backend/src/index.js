@@ -12,7 +12,8 @@ const corsOptions = {
     "http://localhost:5173",
     "http://localhost:3000",
     "http://localhost:3001",
-    "http://localhost:3002", // add more origins
+    "http://localhost:3002",
+    "https://coderangers-web-scraper-application.netlify.app",
   ],
   methods: "*",
 };
